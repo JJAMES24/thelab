@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 /* =========================================
-   THE LAB LINK PAGE
+   THE LAB – COMPLETE WEBSITE STYLES
    ========================================= */
 
 :root {
@@ -13,6 +12,7 @@
 
     --facebook-blue: #1877f2;
     --tripadvisor-green: #34e0a1;
+    --location-red: #e53935;
 
     --card-width: 460px;
     --transition: 0.3s ease;
@@ -20,10 +20,12 @@
 
 
 /* =========================================
-   BASIC RESET
+   RESET
    ========================================= */
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -35,8 +37,10 @@ html {
 
 body {
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
+
     color: var(--soft-black);
+    font-family: Arial, Helvetica, sans-serif;
+
     background:
         radial-gradient(
             circle at top left,
@@ -50,6 +54,10 @@ body {
         );
 }
 
+img {
+    max-width: 100%;
+}
+
 
 /* =========================================
    PAGE CONTAINER
@@ -57,31 +65,37 @@ body {
 
 .page-container {
     position: relative;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     min-height: 100vh;
     padding: 50px 20px;
+
     overflow: hidden;
 }
 
 
-/* Background decorative text */
+/* Decorative background wording */
 
 .page-container::before {
     content: "THE LAB";
+
     position: fixed;
     top: 50%;
     left: 50%;
     z-index: 0;
 
     color: rgba(255, 255, 255, 0.025);
+
     font-size: clamp(5rem, 17vw, 15rem);
     font-weight: 900;
     letter-spacing: 0.08em;
     white-space: nowrap;
 
     transform: translate(-50%, -50%);
+
     pointer-events: none;
 }
 
@@ -116,10 +130,11 @@ body {
 }
 
 
-/* Inner decorative line */
+/* Decorative inner border */
 
 .profile-card::before {
     content: "";
+
     position: absolute;
     inset: 12px;
 
@@ -136,14 +151,17 @@ body {
 
 .decorative-circle {
     position: absolute;
+
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 50%;
+
     pointer-events: none;
 }
 
 .circle-one {
     top: -85px;
     right: -90px;
+
     width: 210px;
     height: 210px;
 }
@@ -151,6 +169,7 @@ body {
 .circle-two {
     bottom: -100px;
     left: -90px;
+
     width: 240px;
     height: 240px;
 }
@@ -163,6 +182,7 @@ body {
 .profile-header {
     position: relative;
     z-index: 2;
+
     text-align: center;
 }
 
@@ -173,10 +193,12 @@ body {
 
     width: 145px;
     height: 145px;
+
     margin-bottom: 20px;
     padding: 6px;
 
     background: var(--white);
+
     border: 2px solid var(--black);
     border-radius: 50%;
 
@@ -185,6 +207,7 @@ body {
 
 .profile-logo {
     display: block;
+
     width: 100%;
     height: 100%;
 
@@ -207,6 +230,7 @@ body {
     margin-bottom: 14px;
 
     color: var(--black);
+
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.2em;
@@ -218,13 +242,14 @@ body {
     margin: 0 auto 30px;
 
     color: var(--text-grey);
+
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 
 /* =========================================
-   SOCIAL LINKS
+   SOCIAL LINKS CONTAINER
    ========================================= */
 
 .social-links {
@@ -236,11 +261,16 @@ body {
     gap: 14px;
 }
 
+
+/* =========================================
+   GENERAL SOCIAL BUTTON
+   ========================================= */
+
 .social-link {
     position: relative;
 
     display: grid;
-    grid-template-columns: 48px 1fr 30px;
+    grid-template-columns: 48px minmax(0, 1fr) 30px;
     align-items: center;
 
     width: 100%;
@@ -251,6 +281,7 @@ body {
     text-decoration: none;
 
     background: rgba(255, 255, 255, 0.88);
+
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 16px;
 
@@ -264,7 +295,16 @@ body {
         transform var(--transition);
 }
 
-.icon-container {
+
+/* =========================================
+   SOCIAL ICON POSITIONING
+   Keeps all icons on the left
+   ========================================= */
+
+.social-link .icon-container {
+    grid-column: 1;
+    grid-row: 1;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -272,7 +312,9 @@ body {
     width: 42px;
     height: 42px;
 
+    color: var(--black);
     font-size: 1.25rem;
+
     border-radius: 12px;
 
     transition:
@@ -281,36 +323,65 @@ body {
         transform var(--transition);
 }
 
-.link-text {
+
+/* =========================================
+   LINK TEXT POSITIONING
+   ========================================= */
+
+.social-link .link-text {
+    grid-column: 2;
+    grid-row: 1;
+
+    min-width: 0;
     padding: 0 12px;
+
+    overflow: hidden;
 
     font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: 0.04em;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.arrow-icon {
+
+/* =========================================
+   ARROW POSITIONING
+   Keeps arrows on the right
+   ========================================= */
+
+.social-link .arrow-icon {
+    grid-column: 3;
+    grid-row: 1;
     justify-self: center;
+
     font-size: 0.8rem;
 
     transition: transform var(--transition);
 }
 
 
-/* General hover movement */
+/* =========================================
+   GENERAL BUTTON HOVER
+   ========================================= */
 
 .social-link:hover,
 .social-link:focus-visible {
     color: var(--white);
+
     border-color: transparent;
 
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+
     transform: translateY(-3px);
 }
 
 .social-link:hover .icon-container,
 .social-link:focus-visible .icon-container {
+    color: inherit;
     background: rgba(255, 255, 255, 0.18);
+
     transform: scale(1.05);
 }
 
@@ -321,21 +392,24 @@ body {
 
 
 /* =========================================
-   FACEBOOK HOVER
+   FACEBOOK
    ========================================= */
 
 .facebook-link:hover,
 .facebook-link:focus-visible {
+    color: var(--white);
     background: var(--facebook-blue);
 }
 
 
 /* =========================================
-   INSTAGRAM HOVER
+   INSTAGRAM
    ========================================= */
 
 .instagram-link:hover,
 .instagram-link:focus-visible {
+    color: var(--white);
+
     background:
         linear-gradient(
             135deg,
@@ -351,7 +425,7 @@ body {
 
 
 /* =========================================
-   MENU HOVER
+   DRINKS MENU
    ========================================= */
 
 .menu-link:hover,
@@ -362,8 +436,21 @@ body {
 
 
 /* =========================================
-   TRIPADVISOR HOVER
+   TRIPADVISOR
    ========================================= */
+
+.tripadvisor-icon {
+    display: block;
+
+    width: 26px;
+    height: 26px;
+
+    object-fit: contain;
+
+    transition:
+        filter var(--transition),
+        transform var(--transition);
+}
 
 .tripadvisor-link:hover,
 .tripadvisor-link:focus-visible {
@@ -375,6 +462,11 @@ body {
 .tripadvisor-link:focus-visible .icon-container {
     color: var(--black);
     background: rgba(255, 255, 255, 0.45);
+}
+
+.tripadvisor-link:hover .tripadvisor-icon,
+.tripadvisor-link:focus-visible .tripadvisor-icon {
+    transform: scale(1.08);
 }
 
 
@@ -397,31 +489,112 @@ body {
     z-index: 2;
 
     margin-top: 30px;
+
     text-align: center;
 }
 
-.profile-footer p {
+.profile-footer > p {
     margin-bottom: 9px;
 
     color: var(--black);
+
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
 }
 
-.profile-footer span {
+
+/* =========================================
+   CLICKABLE BUSINESS LOCATION
+   ========================================= */
+
+.location-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    max-width: 100%;
+    padding: 10px 15px;
+
     color: var(--text-grey);
-    font-size: 0.82rem;
+
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    transition:
+        color var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
 }
 
-.profile-footer i {
-    margin-right: 5px;
+.location-link i {
+    color: var(--location-red);
+    font-size: 1.1rem;
+
+    transition:
+        color var(--transition),
+        transform var(--transition);
+}
+
+.location-link span {
+    color: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.location-link small {
+    flex-basis: 100%;
+
+    margin-top: 1px;
+
+    color: #888888;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+
+    transition: color var(--transition);
+}
+
+.location-link:hover,
+.location-link:focus-visible {
+    color: var(--white);
+    background: var(--black);
+    border-color: var(--black);
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+
+    transform: translateY(-2px);
+}
+
+.location-link:hover i,
+.location-link:focus-visible i {
+    color: #ff4d4d;
+    transform: scale(1.1);
+}
+
+.location-link:hover small,
+.location-link:focus-visible small {
+    color: #dddddd;
+}
+
+.location-link:focus-visible {
+    outline: 3px solid var(--black);
+    outline-offset: 3px;
 }
 
 
 /* =========================================
-   TABLET AND SMALL LAPTOPS
+   TABLETS AND SMALL LAPTOPS
    ========================================= */
 
 @media (max-width: 768px) {
@@ -432,7 +605,12 @@ body {
     .profile-card {
         max-width: 430px;
         padding: 38px 28px 26px;
+
         border-radius: 30px;
+    }
+
+    .profile-card::before {
+        border-radius: 22px;
     }
 
     .logo-container {
@@ -453,11 +631,13 @@ body {
 @media (max-width: 480px) {
     .page-container {
         align-items: flex-start;
+
         padding: 14px 10px;
     }
 
     .profile-card {
         min-height: calc(100vh - 28px);
+
         padding: 32px 18px 24px;
 
         border-width: 2px;
@@ -466,12 +646,14 @@ body {
 
     .profile-card::before {
         inset: 8px;
+
         border-radius: 19px;
     }
 
     .logo-container {
         width: 112px;
         height: 112px;
+
         margin-bottom: 16px;
     }
 
@@ -487,6 +669,7 @@ body {
     .intro {
         margin-bottom: 24px;
         padding: 0 8px;
+
         font-size: 0.87rem;
     }
 
@@ -495,25 +678,38 @@ body {
     }
 
     .social-link {
-        grid-template-columns: 43px 1fr 24px;
+        grid-template-columns: 43px minmax(0, 1fr) 24px;
+
         min-height: 57px;
         padding: 6px 10px;
+
         border-radius: 14px;
     }
 
-    .icon-container {
+    .social-link .icon-container {
         width: 38px;
         height: 38px;
+
         font-size: 1.1rem;
     }
 
-    .link-text {
+    .social-link .link-text {
         padding: 0 9px;
+
         font-size: 0.9rem;
+    }
+
+    .tripadvisor-icon {
+        width: 24px;
+        height: 24px;
     }
 
     .profile-footer {
         margin-top: 24px;
+    }
+
+    .location-link {
+        padding: 9px 10px;
     }
 }
 
@@ -532,8 +728,12 @@ body {
         font-size: 2rem;
     }
 
-    .link-text {
+    .social-link .link-text {
         font-size: 0.84rem;
+    }
+
+    .location-link span {
+        font-size: 0.78rem;
     }
 }
 
@@ -550,82 +750,3 @@ body {
         transition: none !important;
     }
 }
-
-/* =========================================
-   CLICKABLE BUSINESS LOCATION
-   ========================================= */
-
-.location-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-
-    padding: 10px 15px;
-
-    color: var(--text-grey);
-    font-size: 0.85rem;
-    text-decoration: none;
-
-    border: 1px solid transparent;
-    border-radius: 12px;
-
-    transition:
-        color var(--transition),
-        background var(--transition),
-        border-color var(--transition),
-        transform var(--transition);
-}
-
-.location-link i {
-    color: #e53935;
-    font-size: 1.1rem;
-}
-
-.location-link small {
-    width: 100%;
-    margin-top: 1px;
-
-    color: #888888;
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-}
-
-.location-link:hover,
-.location-link:focus-visible {
-    color: var(--white);
-    background: var(--black);
-    border-color: var(--black);
-    transform: translateY(-2px);
-}
-
-.location-link:hover i,
-.location-link:focus-visible i {
-    color: #ff4d4d;
-}
-
-.location-link:hover small,
-.location-link:focus-visible small {
-    color: #dddddd;
-}
-
-.location-link:focus-visible {
-    outline: 3px solid var(--black);
-    outline-offset: 3px;
-}
-
-.tripadvisor-icon {
-    display: block;
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-
-    transition:
-        transform var(--transition),
-        filter var(--transition);
-}
-
-.tripadvisor-link:hover .tripadvisor-icon,
-.tripadvisor-link:focus-visible .tripadvisor-icon {
-    transform: scale(1.08);}
